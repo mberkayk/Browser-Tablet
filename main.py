@@ -7,13 +7,9 @@ from threading import Thread
 import time
 
 
-
 class ScreenCap():
 	def __init__(self):
-		self.resolution = (1920, 1080) 
-		self.codec = cv.VideoWriter_fourcc(*"XVID") 
-		self.fps = 60.0
-
+		pass
 	
 	def capture(self):
 		img = pyautogui.screenshot() 

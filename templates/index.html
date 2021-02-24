@@ -1,9 +1,47 @@
 <html>
   <head>
-    <title>Video Streaming Demonstration</title>
+    <title>Browser Tablet</title>
+    <style> 
+		canvas {
+			touch-action: none;
+		}	
+	</style>
+
+	<script type='text/javascript'>
+
+
+	function debug(x, y) {
+		document.getElementById("debuginfo").innerHTML = x + " " + y;
+	} 
+
+	function init(){
+		let img = document.getElementById("stream");
+		let canvas = document.getElementById("mycanvas");
+		let ctx = canvas.getContext("2d");
+		ctx.strokeStyle = ("white");
+		ctx.fillStyle = ("black");
+		canvas.addEventListener("pointermove", pointerMoveEvent, false);
+	}
+
+	function pointerMoveEvent(e){
+		debug(e.pageX, e.pageY);
+	}
+	
+
+</script>
   </head>
-  <body>
-    <h1>Video Streaming Demonstration</h1>
-    <img id="bg" src="{{ url_for('video_feed') }}">
+  <body onload="init()">
+  
+	<div id="container" style="position:relative;">
+		<div id="div1" style="position:absolute; top:0; left:0;">
+			<img id="stream" src="{{ url_for('video_feed') }}"/>
+		</div>
+		<div id="div2" >
+			<canvas id="mycanvas" width="1920" height="1080" style="border:1px solid black"></canvas>
+		</div>
+	</div>
+    
+    <div id="debuginfo" style="position:relative;"></div>
+    
   </body>
 </html>
