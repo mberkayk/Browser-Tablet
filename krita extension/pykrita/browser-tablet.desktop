@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Krita/PythonPlugin
+X-KDE-Library=browser-tablet
+X-Python-2-Compatible=false
+Name=Browser Tablet
+Comment=Access Krita canvas from your android or apple device through a web browser.
