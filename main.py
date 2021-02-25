@@ -3,9 +3,8 @@ import cv2 as cv
 from PIL import Image
 from flask import Flask, render_template, Response
 import pyautogui
-from threading import Thread
+from flask_socketio import SocketIO, emit
 import time
-
 
 class ScreenCap():
 	def __init__(self):
@@ -22,6 +21,7 @@ class ScreenCap():
 
 screenCap = ScreenCap()
 app = Flask(__name__)
+socketio = SocketIO(app)
 	
 	
 def gen():
@@ -38,10 +38,24 @@ def video_feed():
 def index():
 	return render_template('index.html')
 
+@socketio.on('message')
+def handle_message(data):
+  print('received message: ' + data)
+
+@socketio.on('connect')
+def test_connect():
+  print('client connected')
+
+@socketio.on('disconnect')
+def test_disconnect():
+  print('Client disconnected')
+
+@socketio.on('mouseEvent')
+def mouseEvent(x, y, p):
+  print(x, y, p)
 
 
-
-app.run(host='0.0.0.0',port='8000', debug=True)
- 
+# app.run(host='0.0.0.0',port='8000', debug=True)
+socketio.run(app, host='0.0.0.0',port='8000', debug=True)
 
 

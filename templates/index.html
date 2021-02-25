@@ -2,18 +2,23 @@
   <head>
     <title>Browser Tablet</title>
     <style> 
-		canvas {
+		canvas{
 			touch-action: none;
-		}	
+		}
+		img{
+			touch-action:none;
+		}
 	</style>
+	
+	<script src="https://cdn.socket.io/3.1.1/socket.io.js"></script>
 
 	<script type='text/javascript'>
-
-
+	
+	//const socket = io();
 	function debug(x, y) {
 		document.getElementById("debuginfo").innerHTML = x + " " + y;
 	} 
-
+	
 	function init(){
 		let img = document.getElementById("stream");
 		let canvas = document.getElementById("mycanvas");
@@ -25,10 +30,11 @@
 
 	function pointerMoveEvent(e){
 		debug(e.pageX, e.pageY);
+		//socket.emit('mouseEvent', e.pageX, e.pageY, e.pressure);
 	}
 	
-
 </script>
+
   </head>
   <body onload="init()">
   
@@ -41,7 +47,7 @@
 		</div>
 	</div>
     
-    <div id="debuginfo" style="position:relative;"></div>
+    <h1 id="debuginfo" style="position:relative;"></h1>
     
   </body>
 </html>
