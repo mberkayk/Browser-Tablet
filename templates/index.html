@@ -14,7 +14,7 @@
 
 	<script type='text/javascript'>
 	
-	//const socket = io();
+	const socket = io();
 	function debug(x, y) {
 		document.getElementById("debuginfo").innerHTML = x + " " + y;
 	} 
@@ -30,7 +30,7 @@
 
 	function pointerMoveEvent(e){
 		debug(e.pageX, e.pageY);
-		//socket.emit('mouseEvent', e.pageX, e.pageY, e.pressure);
+		socket.emit('mouseEvent', e.pageX, e.pageY, e.pressure); 
 	}
 	
 </script>
