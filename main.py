@@ -6,7 +6,7 @@ import pyautogui
 from flask_socketio import SocketIO, emit
 import time
 import evdev
-from evdev import UInput, ecodes, AbsInfo
+from evdev import UInput, ecodes as e, AbsInfo
 
 class ScreenCap():
 	def __init__(self):
@@ -27,15 +27,14 @@ app = Flask(__name__)
 socketio = SocketIO(app)
 
 cap = {
-  ecodes.EV_ABS : [
-    (ecodes.ABS_X, AbsInfo(value=0, min=0, max=255,
-                     fuzz=0, flat=0, resolution=0)),
-    (ecodes.ABS_Y, AbsInfo(0, 0, 255, 0, 0, 0)),
-    (ecodes.ABS_MT_POSITION_X, (0, 128, 255, 0)) ]
+e.EV_KEY : [e.BTN_DIGI, e.BTN_TOOL_PEN, e.BTN_TOUCH, e.BTN_STYLUS, e.BTN_STYLUS2],
+e.EV_ABS : [(e.ABS_X, AbsInfo(value=0, min=0, max=1920, fuzz=0, flat=0, resolution=1)),
+            (e.ABS_Y, AbsInfo(value=0, min=0, max=1080, fuzz=0, flat=0, resolution=1)),
+            (e.ABS_PRESSURE, AbsInfo(value=0, min=0, max=2047, fuzz=0, flat=0, resolution=0))],
+e.EV_MSC : [e.MSC_SCAN]
 }
-ui = UInput(cap)
 
-print(ui.capabilities())
+ui = UInput(cap, name="virtual tablet")
 	
 	
 def gen():
@@ -66,10 +65,8 @@ def test_disconnect():
 
 @socketio.on('mouseEvent')
 def mouseEvent(x, y, p):
-  # print(x, y, p)
-  ui.write(ecodes.EV_ABS, ecodes.ABS_X, int(x))
-  ui.write(ecodes.EV_ABS, ecodes.ABS_Y, int(y))
-  # ui.write(ecodes.EV_ABS, ecodes.ABS_PRESSURE, int(p*360))
+  ui.write(e.EV_ABS, e.ABS_X, int(x))
+  ui.write(e.EV_ABS, e.ABS_Y, int(y))
   ui.syn()
 
 
