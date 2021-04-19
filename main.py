@@ -69,6 +69,20 @@ def mouseEvent(x, y, p):
   ui.write(e.EV_ABS, e.ABS_Y, int(y))
   ui.syn()
 
+@socketio.on('pointerDown')
+def pointerDown():
+  ui.write(e.EV_KEY, e.BTN_DIGI, 1)
+  ui.write(e.EV_KEY, e.BTN_TOOL_PEN, 1)
+  ui.write(e.EV_KEY, e.BTN_TOUCH, 1)
+  ui.syn()
+
+@socketio.on('pointerUp')
+def pointerUp():
+  ui.write(e.EV_KEY, e.BTN_DIGI, 0)
+  ui.write(e.EV_KEY, e.BTN_TOOL_PEN, 0)
+  ui.write(e.EV_KEY, e.BTN_TOUCH, 0)
+  ui.syn()
+
 
 # app.run(host='0.0.0.0',port='8000', debug=True)
 socketio.run(app, host='0.0.0.0',port='8000', debug=False)
