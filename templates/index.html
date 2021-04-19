@@ -25,9 +25,9 @@
 		let ctx = canvas.getContext("2d");
 		ctx.strokeStyle = ("white");
 		ctx.fillStyle = ("black");
-		canvas.addEventListener("pointermove", pointerMoveEvent, false);
-		canvas.addEventListener("pointerdown", pointerDownEvent, false);
-		canvas.addEventListener("pointerup", pointerUpEvent, false);
+		canvas.addEventListener("pointermove", pointerMoveEvent);
+		canvas.addEventListener("pointerdown", pointerDownEvent);
+		canvas.addEventListener("pointerup", pointerUpEvent);
 	}
 
 	function pointerMoveEvent(e){
