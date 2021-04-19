@@ -26,12 +26,22 @@
 		ctx.strokeStyle = ("white");
 		ctx.fillStyle = ("black");
 		canvas.addEventListener("pointermove", pointerMoveEvent, false);
+		canvas.addEventListener("pointerdown", pointerDownEvent, false);
+		canvas.addEventListener("pointerup", pointerUpEvent, false);
 	}
 
 	function pointerMoveEvent(e){
 		debug(e.pageX, e.pageY);
 		socket.emit('mouseEvent', e.pageX, e.pageY, e.pressure); 
 	}
+
+	function pointerDownEvent(e){
+		socket.emit('pointerDown');
+	}
+
+	function pointerDownEvent(e){
+			socket.emit('pointerUp');
+		}
 	
 </script>
 
